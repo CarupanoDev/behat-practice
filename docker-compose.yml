@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  php_service:
+    image: php:8.0-apache
+    volumes:
+      - ./src/:/var/www/html
+    expose:
+      - 80
+    ports:
+      - 80:80
+    links:
+      - mysql_service
+
+  mysql_service:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=nombre
+      - MYSQL_ROOT_PASSWORD=claveroot
+      - MYSQL_USER=miusuario
+      - MYSQL_PASSWORD=mipassword
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
